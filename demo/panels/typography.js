@@ -5,7 +5,7 @@ import {
 } from '../../src/index.js';
 import { doc } from '../components/doc.js';
 
-/* ── Sample long-form content rendered once (not reactive) ─────────────── */
+/*  Sample long-form content rendered once (not reactive)  */
 const sampleContent = [
   H1({})(['Typography System']),
   P({ lead: true })([
@@ -80,7 +80,7 @@ const sampleContent = [
   ),
 ];
 
-/* ── Panel (static — no reactive state needed) ─────────────────────────── */
+/*  Panel (static — no reactive state needed)  */
 export const typographyPanel = () =>
   div({})([
     Card({ title: 'Typography + Auto-TOC' })([

@@ -5,7 +5,7 @@ import { getRenderLog, getProfilerFrame, enableProfiler, disableProfiler } from 
 import { Button } from './Button.js';
 import { BarChart, MultiLineChart } from './Charts.js';
 
-// ── Module-level UI state ────────────────────────────────────────────────
+//  Module-level UI state 
 const _ui = {
   limit:        50,
   showTable:    false,
@@ -13,7 +13,7 @@ const _ui = {
   lastSeenFrame: -1,     // used to auto-detach when the component stops rendering
 };
 
-// ── Helpers ───────────────────────────────────────────────────────────────
+//  Helpers 
 const fmt = n => n < 0.1 ? '<0.1' : n.toFixed(2);
 const hot = ms => ms > 16.67;
 
@@ -89,7 +89,7 @@ const opsRow = e => {
   ]);
 };
 
-// ── Component ─────────────────────────────────────────────────────────────
+//  Component 
 
 /**
  * Auto-detaches (calls disableProfiler) when it stops being rendered,
@@ -98,7 +98,7 @@ const opsRow = e => {
  * @param {Object}   opts
  * @param {function} opts.setState  Store setState — used to force re-renders.
  *
- * ── How to read the profiler ─────────────────────────────────────────────
+ *  How to read the profiler 
  *
  * STAT CHIPS (top row)
  *   last   — total ms for the most recent frame.
@@ -193,7 +193,7 @@ const RenderProfiler = ({ setState = () => {}, active = true } = {}) => {
   // captures real data and the UI isn't empty.
   if (justActivated) { queueMicrotask(force); }
 
-  // ── auto-detach: if the frame counter hasn't advanced since last render,
+  //  auto-detach: if the frame counter hasn't advanced since last render,
   //    we're still alive; if it HAS advanced but we weren't called, we won't
   //    reach here anyway. Track the frame we last ran at so that calling
   //    disableProfiler from the FloatingPanel onClose is enough — but also
@@ -204,7 +204,7 @@ const RenderProfiler = ({ setState = () => {}, active = true } = {}) => {
   if (!log.length)
     return div({ className: 'rp-empty' })(['No renders recorded yet.']);
 
-  // ── aggregate stats ──────────────────────────────────────────────────
+  //  aggregate stats 
   const totals  = log.map(e => e.totalMs);
   const last    = totals[0];
   const avg     = totals.reduce((a, b) => a + b, 0) / totals.length;
@@ -212,7 +212,7 @@ const RenderProfiler = ({ setState = () => {}, active = true } = {}) => {
   const sorted  = [...totals].sort((a, b) => a - b);
   const p95     = sorted[Math.floor(sorted.length * 0.95)] ?? maximum;
 
-  // ── chart series (oldest → newest) ────────────────────────────────────────
+  //  chart series (oldest → newest) 
   const frames       = log.slice().reverse();
   const highlightIdx = _ui.expandedFrame != null
     ? frames.findIndex(f => f.frame === _ui.expandedFrame)
@@ -224,12 +224,12 @@ const RenderProfiler = ({ setState = () => {}, active = true } = {}) => {
   ];
   const xLabels      = frames.map(f => `#${f.frame}`);
 
-  // ── expanded frame ────────────────────────────────────────────────────
+  //  expanded frame 
   const expanded = highlightIdx != null ? frames[highlightIdx] : null;
 
   return div({ className: 'rp-root' })([
 
-    // ── stat chips ───────────────────────────────────────────────────────
+    //  stat chips 
     div({ className: 'rp-stats' })([
       statChip('last')(`${fmt(last)}ms`)(hot(last)),
       statChip('avg')(`${fmt(avg)}ms`)(hot(avg)),
@@ -251,7 +251,7 @@ const RenderProfiler = ({ setState = () => {}, active = true } = {}) => {
       })(['≡']),
     ]),
 
-    // ── timing / history multi-line chart ────────────────────────────────────────────
+    //  timing / history multi-line chart 
     MultiLineChart({
       width: 840, height: 130, paddingX: 36, paddingY: 14,
       gridLines: true, dots: true, dotR: 3, legend: true,
@@ -263,7 +263,7 @@ const RenderProfiler = ({ setState = () => {}, active = true } = {}) => {
       },
     })(chartSeries),
 
-    // ── expanded frame detail ────────────────────────────────────────────────────
+    //  expanded frame detail 
     expanded
       ? div({ className: 'rp-chart-detail' })([
           span({ className: 'rp-cd-frame', style: 'font-size:11px; color:var(--text-muted); display:block; margin-bottom:6px' })([
@@ -273,7 +273,7 @@ const RenderProfiler = ({ setState = () => {}, active = true } = {}) => {
         ])
       : div({ style: 'display:none' })([]),
 
-    // ── table ────────────────────────────────────────────────────────────
+    //  table 
     _ui.showTable
       ? table({ className: 'rp-table' })([
           thead({})([

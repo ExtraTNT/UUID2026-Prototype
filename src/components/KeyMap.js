@@ -1,6 +1,6 @@
 import { createBus } from '../listeners.js';
 
-// ── Key aliases ───────────────────────────────────────────────────────────────
+//  Key aliases 
 const _ALIASES = {
   ' ':        'space',
   'spacebar': 'space',
@@ -13,7 +13,7 @@ const _ALIASES = {
   'right':    'arrowright',
 };
 
-// ── Pretty display names for special keys ────────────────────────────────────
+//  Pretty display names for special keys 
 const _DISPLAY = {
   arrowup:    '↑',
   arrowdown:  '↓',
@@ -67,7 +67,7 @@ const formatCombo = combo => {
   return parts.join('+');
 };
 
-// ── createKeymap ──────────────────────────────────────────────────────────────
+//  createKeymap 
 /**
  * Purely functional keyboard-event manager.
  * Routing is delegated to the shared createBus pub/sub from listeners.js —
@@ -79,7 +79,7 @@ const formatCombo = combo => {
  *
  * @returns Frozen keymap instance.
  *
- * ── Curried API ──────────────────────────────────────────────────────────────
+ *  Curried API 
  *
  *  addGlobal  :: combo -> (element -> event -> void) -> (() -> void)
  *    Register a binding that fires on every matching keydown regardless of scope.
@@ -104,7 +104,7 @@ const formatCombo = combo => {
  *  destroy :: () -> void
  *    Remove the keydown listener and destroy the internal bus.
  *
- * ── Handler signature ────────────────────────────────────────────────────────
+ *  Handler signature 
  *
  *  handler(element)(event)
  *    element — the DOM element passed to focusScope (null when no scope active)
@@ -164,7 +164,7 @@ const createKeymap = (opts = {}) => {
 
   if (target) target.addEventListener('keydown', _handleKey);
 
-  // ── Registration helpers ───────────────────────────────────────────────────
+  //  Registration helpers 
 
   // Wrap the bus off-fn to also remove the metadata entry on unbind
   const _register = busEvent => entry => slot => {

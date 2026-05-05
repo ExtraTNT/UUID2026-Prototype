@@ -8,17 +8,17 @@ import {
 import { setState } from '../store.js';
 import { doc } from '../components/doc.js';
 
-/* ── Result display helper ─────────────────────────────────────────────── */
+/*  Result display helper  */
 const Val = (v, muted = false) =>
   span({
     style: `font-family:var(--font-mono,monospace); font-size:.85rem; color:${muted ? 'var(--text-muted)' : 'var(--accent)'}`,
   })([String(v)]);
 
-/* ── Panel ─────────────────────────────────────────────────────────────── */
+/*  Panel  */
 export const pickersPanel = state =>
   div({})([
 
-    // ── NumberInput ─────────────────────────────────────────────────────────
+    //  NumberInput 
     Card({ title: 'NumberInput' })([
       Row({ gap: 24 })([
         Col({ span: 12 })([
@@ -62,7 +62,7 @@ export const pickersPanel = state =>
       ]),
     ]),
 
-    // ── ColorPicker ─────────────────────────────────────────────────────────
+    //  ColorPicker 
     div({ style: 'margin-top: 16px' })([
       Card({ title: 'ColorPicker' })([
         Row({ gap: 32 })([
@@ -95,7 +95,7 @@ export const pickersPanel = state =>
       ]),
     ]),
 
-    // ── DateTimePicker ──────────────────────────────────────────────────────
+    //  DateTimePicker 
     div({ style: 'margin-top: 16px' })([
       Card({ title: 'DateTimePicker' })([
         Row({ gap: 32 })([

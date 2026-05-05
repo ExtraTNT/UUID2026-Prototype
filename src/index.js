@@ -1,26 +1,26 @@
-// ── odocosJS primitives ────────────────────────────────────────────────────
+//  odocosJS primitives 
 export { vnode, vsnode, createNode, render, resolveStyle } from '../lib/odocosjs/src/render.js';
 export { Observable } from '../lib/odocosjs/src/Observable.js';
 
-// ── Shared utilities ─────────────────────────────────────────────────────
+//  Shared utilities 
 export { cn, fire } from './utils.js';
 
-// ── HTML element shortcuts ─────────────────────────────────────────────────
+//  HTML element shortcuts 
 export * from './elements.js';
 
-// ── Styling ────────────────────────────────────────────────────────────────
+//  Styling 
 export { initStyles, injectStyles, toggleTheme, setTheme, setTokens, resetTokens, tokens } from './styles.js';
 
-// ── State management ───────────────────────────────────────────────────────
+//  State management 
 export { createStore, mount, getRenderLog, getProfilerFrame, enableProfiler, disableProfiler } from './state.js';
 
-// ── Validation ─────────────────────────────────────────────────────────────
+//  Validation 
 export { required, minLength, maxLength, ip, email, pattern, range, validate, validateForm, isFormValid } from './validate.js';
 
-// ── Caching / memoization ──────────────────────────────────────────────────
+//  Caching / memoization 
 export { memoComponent, memoLeaf, memoize, stableKey } from './cache.js';
 
-// ── Components ─────────────────────────────────────────────────────────────
+//  Components 
 export { Button }                        from './components/Button.js';
 export { TextInput }                     from './components/TextInput.js';
 export { Card }                          from './components/Card.js';
@@ -45,33 +45,33 @@ export { ListenersDebugger }                     from './components/ListenersDeb
 export { Dropzone }                              from './components/Dropzone.js';
 export { Container, Row, Col, Stack, Grid, PageLayout, AppShell, TwoPane, BlogLayout, Divider, Spacer, AspectBox, Float, Clearfix, DragList, useDragListGroup } from './components/Layout.js';
 
-// ── Markdown / Syntax Highlight ────────────────────────────────────────────
+//  Markdown / Syntax Highlight 
 export { tokenizer, highlight, defaultRegistry } from './components/Highlight.js';
 export { parseInline, parseMarkdown, markdownToVnode, setHighlightRegistry, registerPlugin, unregisterPlugin } from './components/Markdown.js';
 
-// ── Pickers & Typography ───────────────────────────────────────────────────
+//  Pickers & Typography 
 export { NumberInput }                                               from './components/NumberInput.js';
 export { ColorPicker, DEFAULT_SWATCHES }                            from './components/ColorPicker.js';
 export { DateTimePicker }                                            from './components/DateTimePicker.js';
 export { Typography, H1, H2, H3, H4, H5, H6, P, Code, Pre, Quote, collectHeadings, slugify } from './components/Typography.js';
 
-// ── Charts ─────────────────────────────────────────────────────────────────
+//  Charts 
 export { PieChart, BarChart, LineChart, MultiLineChart, SparkLine, PALETTE } from './components/Charts.js';
 
-// ── Listeners / Event system ───────────────────────────────────────────────
+//  Listeners / Event system 
 export { addListener, debounce, createBus, onWindowResize, onBreakpoint, onKeydown, onKeyup, createAlarm, onVisibilityChange } from './listeners.js';
 export { listBusIds, getBus } from './listeners.js';
 
-// ── WebSocket ─────────────────────────────────────────────────────────────
+//  WebSocket 
 export { createWS } from './ws.js';
 
-// ── Router / Navigation ───────────────────────────────────────────────────
+//  Router / Navigation 
 export { createRouter, Link, NavLink, NavBar, NavMenu, Breadcrumbs } from './router.js';
 
-// ── KeyMap ────────────────────────────────────────────────────────────────
+//  KeyMap 
 export { createKeymap, parseCombo, matchCombo, formatCombo } from './components/KeyMap.js';
 
-// ── Glitch ────────────────────────────────────────────────────────────────
+//  Glitch 
 export { GlitchImg, GlitchCanvas } from './components/GlitchImg.js';
 export { CanvasBg } from './components/CanvasBg.js';
 export { ImageBg } from './components/ImageBg.js';

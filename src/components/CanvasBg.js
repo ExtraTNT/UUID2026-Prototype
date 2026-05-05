@@ -15,14 +15,14 @@
  *   // 3. On unmount:
  *   fx.stop();
  *
- * ── Layout ──────────────────────────────────────────────────────────────────
+ *  Layout 
  *
  *   .cvs-bg            wrapper — position:relative; overflow:hidden; height from prop
  *     <canvas>         absolute; top:50% left:50% translate(-50%,-50%)
  *                      min-width:100% min-height:100% — "object-fit:cover" behaviour
  *     .cvs-bg-content  position:relative; z-index:1  — children live here
  *
- * ── API ──────────────────────────────────────────────────────────────────────
+ *  API 
  *   CanvasBg(opts)(children) → vnode
  *
  *   opts.id          {string}   id placed on the <canvas> element so the effect can target it
@@ -33,7 +33,7 @@
 
 import { div, canvas } from '../elements.js';
 
-// ── Component ─────────────────────────────────────────────────────────────────
+//  Component 
 
 /**
  * CanvasBg :: opts → children → vnode

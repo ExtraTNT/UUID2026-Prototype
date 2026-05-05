@@ -1,7 +1,7 @@
 import { Pair, fst, snd } from '../lib/odocosjs/src/core.js';
 import { Observable } from '../lib/odocosjs/src/Observable.js';
 
-// ── Focus helpers ─────────────────────────────────────────────────────────
+// Focus helpers 
 
 const TEXT_SELECTION_TYPES = new Set([
   'text', 'search', 'url', 'tel', 'password', 'email',
@@ -36,7 +36,7 @@ const restoreFocus = snap => {
   }
 };
 
-// ── Vnode helpers ─────────────────────────────────────────────────────────
+// Vnode helpers 
 
 /** Flatten and normalise a vnode's children: coerce numbers to strings, drop nulls */
 const childList = vnode =>
@@ -47,13 +47,13 @@ const childList = vnode =>
 /** Extract the framework key from a vnode (null when absent) */
 const vnodeKey = c => (c && typeof c === 'object' ? (c.props?.key ?? null) : null);
 
-// ── Structural DOM patcher ────────────────────────────────────────────────
+// Structural DOM patcher 
 // Walks the live DOM and new vnode tree in parallel, only touching nodes
 // that actually changed. Unchanged subtrees are left completely alone.
 
 const _prevProps = new WeakMap();
 
-// ── SVG-aware node creation ───────────────────────────────────────────────
+//  SVG-aware node creation 
 const _SVG_NS  = 'http://www.w3.org/2000/svg';
 const _SVG_SET = new Set([
   'svg','g','path','circle','ellipse','rect','line','polyline','polygon',
@@ -82,7 +82,7 @@ const _buildNode = vnode => {
   return node;
 };
 
-// ── Tracked node creation ─────────────────────────────────────────────────
+//  Tracked node creation 
 // _registerProps walks the just-created DOM tree and seeds _prevProps so
 // every subsequent patch has accurate "what was previously set" tracking.
 const _registerProps = (vnode, dom) => {
@@ -141,7 +141,7 @@ const _patch = parent => oldNode => newVnode => {
     return;
   }
 
-  // ── Text node ──────────────────────────────────────────────────────────
+  //  Text node 
   if (typeof newVnode === 'string') {
     if (oldNode.nodeType === Node.TEXT_NODE) {
       if (oldNode.nodeValue !== newVnode) { if (_profiling) _ops.textUpdates++; oldNode.nodeValue = newVnode; }
@@ -152,7 +152,7 @@ const _patch = parent => oldNode => newVnode => {
     return;
   }
 
-  // ── Element: different tag → full replacement ──────────────────────────
+  //  Element: different tag → full replacement 
   if (
     oldNode.nodeType !== Node.ELEMENT_NODE ||
     oldNode.tagName.toLowerCase() !== newVnode.tag
@@ -162,13 +162,13 @@ const _patch = parent => oldNode => newVnode => {
     return;
   }
 
-  // ── Element: same tag → patch props then recurse ───────────────────────
+  //  Element: same tag → patch props then recurse 
   _patchProps(oldNode)(newVnode.props || {});
 
   const newCh = childList(newVnode);
   const oldCh = Array.from(oldNode.childNodes);   // static snapshot
 
-  // ── Key-based reconciliation ──────────────────────────────────────────
+  //  Key-based reconciliation 
   if (newCh.some(c => vnodeKey(c) != null)) {
     const keyMap  = new Map(
       oldCh.filter(n => n._dervoKey != null).map(n => [n._dervoKey, n])
@@ -204,7 +204,7 @@ const _patch = parent => oldNode => newVnode => {
     return;
   }
 
-  // ── Index-based reconciliation (no keys) ─────────────────────────────
+  //  Index-based reconciliation (no keys) 
   const minLen = Math.min(oldCh.length, newCh.length);
   for (let i = 0; i < minLen; i++) _patch(oldNode)(oldCh[i])(newCh[i]);
   newCh.slice(minLen).forEach(child => {
@@ -217,7 +217,7 @@ const _patch = parent => oldNode => newVnode => {
   oldCh.slice(newCh.length).reverse().forEach(n => { if (_profiling) _ops.removes++; oldNode.removeChild(n); });
 };
 
-// ── Renderer ─────────────────────────────────────────────────────────────
+//  Renderer 
 
 /** Curried: _render(root)(newVnodes) — patch or initial-render a list of root vnodes */
 const _render = root => newVnodes => {
@@ -317,7 +317,7 @@ const mount = store => root => view => {
   _run();   // initial render
 };
 
-// ── Render performance log ────────────────────────────────────────────────
+// Render performance log 
 // Profiling is OFF by default so the hot render path has zero overhead.
 // Call enableProfiler() to start collecting; disableProfiler() to stop.
 // getRenderLog() auto-enables profiling and returns the ring buffer.
@@ -343,6 +343,7 @@ const _flushPendingLog = () => {
   if (!_pendingLog) return;
   const p = _pendingLog;
   _pendingLog = null;
+  //console.log(p);
   _renderLog.unshift({
     frame:       ++_frameIdx,
     computeMs:   +p.computeMs.toFixed(3),

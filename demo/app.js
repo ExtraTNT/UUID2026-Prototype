@@ -31,16 +31,16 @@ import { glitchPanel     } from './panels/glitch.js';
 import { headerPanel     } from './panels/header.js';
 import { a11yPanel       } from './panels/a11y.js';
 
-// ── Styles ─────────────────────────────────────────────────────────────────
+//  Styles 
 initStyles();
 document.body.style.cssText = 'padding:0; margin:0;';
 
-// ── Keyboard shortcut ──────────────────────────────────────────────────────
+//  Keyboard shortcut 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && getState().showModal) setState({ showModal: false });
 });
 
-// ── Nav ────────────────────────────────────────────────────────────────────
+//  Nav 
 const NAV_ITEMS = [
   { id: 'philosophy', icon: '☯', label: 'Philosophy'},
   { id: 'buttons',    icon: '◈', label: 'Buttons' },
@@ -118,7 +118,7 @@ const PANELS = {
   a11y:       a11yPanel
 };
 
-// ── Root view ──────────────────────────────────────────────────────────────
+//  Root view 
 const pageView = state =>
   PageLayout({
     topBar: div({ style: 'display:flex; align-items:center; gap:10px; padding:0 16px; height:52px' })([
@@ -197,6 +197,6 @@ const view = state => [
   ]),
 ];
 
-// ── Mount ──────────────────────────────────────────────────────────────────
+//  Mount 
 mount(store)(document.body)(view);
 

@@ -4,20 +4,20 @@
  * Pure SVG charts. All curried, data-driven, zero framework coupling.
  * Requires the SVG-aware renderer (createElementNS + setAttribute).
  *
- * ── Data format ────────────────────────────────────────────────────────────
+ *  Data format 
  *   PieChart / BarChart / LineChart:
  *     [{ label: string, value: number, color?: string }]
  *
  *   SparkLine:
  *     number[]
  *
- * ── Components ─────────────────────────────────────────────────────────────
+ *  Components 
  *   PieChart(opts)(data)    — pie or donut chart with legend
  *   BarChart(opts)(data)    — vertical bar chart with Y-axis grid
  *   LineChart(opts)(data)   — line chart (fill / dots / smooth all optional)
  *   SparkLine(opts)(values) — minimal inline trend line, no axes
  *
- * ── Hover callbacks ────────────────────────────────────────────────────────
+ *  Hover callbacks 
  *   All charts accept onXxxHover: (item | null, index | -1) → void
  *   Manage tooltip state in your store; keep charts declarative.
  *
@@ -32,7 +32,7 @@ import { vnode } from '../../lib/odocosjs/src/render.js';
 import { div, span } from '../elements.js';
 import { cn } from '../utils.js';
 
-// ── Local SVG element factories ─────────────────────────────────────────────
+//  Local SVG element factories 
 const _svg    = vnode('svg');
 const _g      = vnode('g');
 const _path   = vnode('path');
@@ -42,13 +42,13 @@ const _line   = vnode('line');
 const _pline  = vnode('polyline');
 const _txt    = vnode('text');
 
-// ── Default colour palette ───────────────────────────────────────────────────
+//  Default colour palette 
 const PALETTE = [
   '#4e79a7', '#f28e2b', '#e15759', '#76b7b2', '#59a14f',
   '#edc948', '#b07aa1', '#ff9da7', '#9c755f', '#bab0ac',
 ];
 
-// ── Pure helpers (all curried) ───────────────────────────────────────────────
+//  Pure helpers (all curried) 
 const _sum   = xs => xs.reduce((a, b) => a + b, 0);
 const _max   = xs => Math.max(...xs);
 const _min   = xs => Math.min(...xs);
@@ -69,7 +69,7 @@ const _polar = cx => cy => r => angle => ({
   y: cy + r * Math.sin(angle),
 });
 
-// ── Nice grid helpers ────────────────────────────────────────────────────────
+//  Nice grid helpers 
 
 const _niceStep = max => {
   if (max <= 0) return 1;
@@ -97,7 +97,7 @@ const _niceTop = max => {
   return Math.ceil(max / step) * step;
 };
 
-// ── SVG arc path for a pie/donut slice ──────────────────────────────────────
+//  SVG arc path for a pie/donut slice 
 // cx, cy: centre; r: outer radius; ir: inner radius (0 = solid pie)
 // s, e: start/end angles in radians
 const _slicePath = cx => cy => r => ir => s => e => {
@@ -122,7 +122,7 @@ const _slicePath = cx => cy => r => ir => s => e => {
   ].join(' ');
 };
 
-// ── Catmull-Rom smooth path through [{x,y}] ──────────────────────────────────
+//  Catmull-Rom smooth path through [{x,y}] 
 const _smoothPath = pts => {
   if (pts.length < 2) return `M ${_fmt(pts[0].x)} ${_fmt(pts[0].y)}`;
   const T    = 0.3;
@@ -138,7 +138,7 @@ const _smoothPath = pts => {
   }, `M ${_fmt(pts[0].x)} ${_fmt(pts[0].y)}`);
 };
 
-// ── Colour legend (HTML) ─────────────────────────────────────────────────────
+//  Colour legend (HTML) 
 const _legend = palette => data =>
   div({ style: 'display:flex; flex-wrap:wrap; gap:4px 14px; margin-top:8px; font-size:12px; color:var(--text)' })(
     data.map((d, i) =>
@@ -149,7 +149,7 @@ const _legend = palette => data =>
     )
   );
 
-// ── PieChart ─────────────────────────────────────────────────────────────────
+//  PieChart 
 /**
  * Pie or donut chart. Each item in data becomes one slice.
  *
@@ -238,7 +238,7 @@ const PieChart = ({
   ]);
 };
 
-// ── BarChart ──────────────────────────────────────────────────────────────────
+//  BarChart 
 /**
  * Vertical bar chart with Y-axis grid lines.
  *
@@ -380,7 +380,7 @@ const BarChart = ({
   ]);
 };
 
-// ── LineChart ─────────────────────────────────────────────────────────────────
+//  LineChart 
 /**
  * Line chart. Fill, dots, and smooth Catmull-Rom curves are all optional.
  *
@@ -533,7 +533,7 @@ const LineChart = ({
   ]);
 };
 
-// ── SparkLine ─────────────────────────────────────────────────────────────────
+//  SparkLine 
 /**
  * Minimal inline trend line. No axes, no labels — just shape and colour.
  * Perfect for embedding in table cells or stat cards.
@@ -603,7 +603,7 @@ const SparkLine = ({
   ]);
 };
 
-// ── MultiLineChart ────────────────────────────────────────────────────────────
+//  MultiLineChart 
 /**
  * Multi-series line chart. All series share the same X/Y scales.
  * Clicking a point (or the invisible vertical strip over it) selects that

@@ -16,7 +16,7 @@
  *   setTokens({ accent: '#e11d48', 'accent-hover': '#be123c' });
  */
 
-// ── Default token values ──────────────────────────────────────────────────
+//  Default token values 
 // These match the :root and [data-theme='dark'] blocks in dervo.css.
 // They are the source of truth for the JS side; the CSS file mirrors them.
 export const tokens = {
@@ -94,7 +94,7 @@ export const tokens = {
   },
 };
 
-// ── Internal helpers ───────────────────────────────────────────────────────
+//  Internal helpers 
 const _toVars = obj =>
   Object.entries(obj).map(([k, v]) => `  --${k}: ${v};`).join('\n');
 
@@ -108,7 +108,7 @@ const _injectOverrides = (id, selector, map) => {
   el.textContent = `${selector} {\n${_toVars(map)}\n}`;
 };
 
-// ── initStyles ─────────────────────────────────────────────────────────────
+//  initStyles 
 let _cssHref = new URL('./dervo.css', import.meta.url).href;
 
 /**
@@ -164,7 +164,7 @@ const initStyles = (opts = {}) => {
     _injectOverrides('dervo-theme-dark', "[data-theme='dark']", darkColors);
 };
 
-// ── Runtime token mutation ─────────────────────────────────────────────────
+//  Runtime token mutation 
 /**
  * Apply CSS variable overrides to :root at runtime.
  * Useful for live theme pickers.
@@ -172,7 +172,7 @@ const initStyles = (opts = {}) => {
  * @param {object} colorMap  e.g. { accent: '#e11d48' }
  * @param {'light'|'dark'|'both'} [target='both']  Which theme selector to update.
  */
-const setTokens = (colorMap, target = 'both') => {
+const setTokens = colorMap => (target = 'both') => {
   const root = document.documentElement;
   Object.entries(colorMap).forEach(([k, v]) => {
     root.style.setProperty(`--${k}`, v);
@@ -193,7 +193,7 @@ const resetTokens = (keys) => {
   );
 };
 
-// ── Theme helpers ──────────────────────────────────────────────────────────
+//  Theme helpers 
 /**
  * Toggle between light and dark theme on <html data-theme>.
  * Returns the new theme string ('light' | 'dark').
@@ -213,7 +213,7 @@ const setTheme = theme => {
   document.documentElement.dataset.theme = theme;
 };
 
-// ── Legacy in-JS inject (kept for backwards compat) ───────────────────────
+//  Legacy in-JS inject (kept for backwards compat) 
 /**
  * @deprecated  Use initStyles() instead. This function still works but
  *              embeds the CSS as a <style> tag rather than a <link>.

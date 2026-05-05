@@ -238,8 +238,8 @@ initStyles({
 
 // Runtime
 toggleTheme();                              // flips light ↔ dark
-setTokens({ accent: '#7c3aed' });           // live CSS var override
-resetTokens(['accent']);                     // restore stylesheet default
+setTokens({ accent: '#7c3aed' })();       // live CSS var override
+resetTokens(['accent']);                    // restore stylesheet default
 resetTokens();                              // reset everything
 ```
 

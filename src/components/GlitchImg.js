@@ -11,13 +11,13 @@
  * around the pure pipeline.  The component does NOT return a vnode — it mounts
  * into an existing element (canvas or container div) and returns controls.
  *
- *── Effects ────────────────────────────────────────────────────────────────
+ * Effects 
  *   flowLine  — a bright scanline that scrolls down every frame
  *   shiftLine — random horizontal bands shifted left / right
  *   shiftRGB  — chromatic aberration: R, G, B channels shifted independently
  *   scatter   — random rectangles extracted and re-drawn at offset positions
  *
- * ── API ─────────────────────────────────────────────────────────────────────
+ *  API 
  *   GlitchImg(opts)(el) → { stop, pause, resume }
  *
  *   opts.src             {string}  Image URL.  Must be CORS-accessible for pixel read.
@@ -30,7 +30,7 @@
  *
  *   el  — <canvas> element OR any container element (a canvas is created inside).
  *
- * ── CSS helper ──────────────────────────────────────────────────────────────
+ *  CSS helper 
  *   GlitchCanvas(opts) → vnode   — declare a canvas placeholder in your vnode tree.
  *
  * @example
@@ -46,10 +46,10 @@
 
 import { canvas } from '../elements.js';
 
-// ── Constants ─────────────────────────────────────────────────────────────
+//  Constants 
 const CH = 4; // RGBA channels per pixel
 
-// ── Pure helpers ──────────────────────────────────────────────────────────
+//  Pure helpers 
 
 // copyPixels :: TypedArray → Uint8ClampedArray
 const copyPixels = data => new Uint8ClampedArray(data);
@@ -63,7 +63,7 @@ const clamp255 = x => x < 0 ? 0 : x > 255 ? 255 : x;
 // wrapIdx :: number → number → number   (positive modulo)
 const wrapIdx = len => i => ((i % len) + len) % len;
 
-// ── Pixel transforms (config → state → pixels → pixels) ──────────────────
+//  Pixel transforms (config → state → pixels → pixels) 
 
 /**
  * flowLine :: { speed, brightness } → { w, h, t } → Uint8ClampedArray → Uint8ClampedArray
@@ -153,7 +153,7 @@ const extractRect = ({ w, h }) => src => {
   return { data, rw, rh };
 };
 
-// ── Pipeline ───────────────────────────────────────────────────────────────
+//  Pipeline 
 
 /**
  * buildPipeline :: config → state → pixels → pixels
@@ -170,7 +170,7 @@ const buildPipeline = ({ numShiftLines, flowCfg, enableRGB }) => state => src =>
   return p;
 };
 
-// ── Mount function — imperative shell, functional API ─────────────────────
+//  Mount function — imperative shell, functional API 
 
 /**
  * GlitchImg :: opts → (HTMLElement | HTMLCanvasElement) → { stop, pause, resume }
@@ -212,7 +212,7 @@ export const GlitchImg = ({
     enableRGB:     rgb,
   });
 
-  // ── Load image ─────────────────────────────────────────────────────────
+  //  Load image 
 
   const imgEl        = new Image();
   imgEl.crossOrigin  = 'anonymous';
@@ -226,7 +226,7 @@ export const GlitchImg = ({
   };
   imgEl.src = src;
 
-  // ── Frame loop ──────────────────────────────────────────────────────────
+  //  Frame loop 
 
   const loop = now => {
     rafId = requestAnimationFrame(loop);
@@ -266,7 +266,7 @@ export const GlitchImg = ({
     });
   };
 
-  // ── Controls ────────────────────────────────────────────────────────────
+  //  Controls 
   const stop   = () => { cancelAnimationFrame(rafId); rafId = null; clearTimeout(throughTimer); };
   const pause  = () => { paused = true; };
   const resume = () => { paused = false; };
@@ -274,7 +274,7 @@ export const GlitchImg = ({
   return { stop, pause, resume };
 };
 
-// ── Vnode helper ──────────────────────────────────────────────────────────
+//  Vnode helper 
 
 /**
  * GlitchCanvas :: { id?, className?, style?, width?, height? } → vnode

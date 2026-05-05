@@ -737,7 +737,7 @@ DragList({ groupId:'review', listId:'del',  onTransfer, items: state.del,  onCha
       { name: 'opts.cssHref',            type: 'string', default: './dervo.css', desc: 'Custom URL for the stylesheet (e.g. CDN)' },
       { name: 'opts.noLink',             type: 'boolean', default: 'false',  desc: 'Skip <link> injection when you import CSS via a bundler' },
       { name: 'tokens',                  type: 'object', default: '—',       desc: '{ light: {...}, dark: {...} } — default token values as JS object' },
-      { name: 'setTokens(map)',          type: 'fn',    default: '—',       desc: 'Apply one or more CSS var overrides to :root inline style' },
+      { name: 'setTokens(map)()',        type: 'fn',    default: '—',       desc: 'Apply one or more CSS var overrides to :root inline style' },
       { name: 'resetTokens(keys?)',      type: 'fn',    default: '—',       desc: 'Remove inline overrides => restores CSS-file defaults. Pass key[] to reset specific tokens, or omit to reset all.' },
       { name: 'toggleTheme()',           type: 'fn',    default: '—',       desc: "Flip data-theme between 'light' and 'dark', returns new value" },
       { name: 'setTheme(theme)',         type: 'fn',    default: '—',       desc: "Set data-theme explicitly to 'light' or 'dark'" },

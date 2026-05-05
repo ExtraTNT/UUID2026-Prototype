@@ -178,7 +178,7 @@ Stack({ gap: 16, align: 'center' })([ item1, item2 ])`]),
 ])`]),      ]),
     ]),
 
-    // ── DragList ────────────────────────────────────────────────────────────
+    //  DragList 
     div({ style: 'margin-top:16px' })([
       Card({ title: 'DragList — single list reorder' })([
         p({ style: 'margin-top:0; font-size:13px; color:var(--text-muted)' })([

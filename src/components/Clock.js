@@ -80,7 +80,7 @@ const createInterval = fn => ({ ms = 1000, autoStart = false } = {}) => {
   return { start, stop, restart, toggle, isRunning };
 };
 
-// ── Task helpers ──────────────────────────────────────────────────────────
+//  Task helpers 
 
 /** Task that resolves after `ms` milliseconds. */
 const delay = ms => new Task((_rej, res) => setTimeout(res, ms));
@@ -146,7 +146,7 @@ const createTimer = ({ store, key = 'timer', step = 1 } = {}) => {
   return { start, pause, reset, toggle };
 };
 
-// ── Internal button helper (curried) ──────────────────────────────────────
+//  Internal button helper (curried) 
 const _btn = label => onClick => variant =>
   button({ className: `btn btn-${variant} btn-sm`, onclick: onClick, type: 'button' })([label]);
 

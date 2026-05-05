@@ -6,7 +6,7 @@
  * what to do (usually setState). Navigation components are plain curried
  * vnode factories that read active route from state.
  *
- * ── Overview ────────────────────────────────────────────────────────────────
+ *  Overview 
  *
  *   createRouter(routes)(handlers)  — attach router to the browser; returns controller
  *   Link(opts)(children)            — curried <a> that navigates without page reload
@@ -14,7 +14,7 @@
  *   NavBar(opts)(children)          — horizontal navigation bar container
  *   NavMenu(opts)(children)         — vertical sidebar navigation container
  *
- * ── Route matching ──────────────────────────────────────────────────────────
+ *  Route matching 
  *
  *   Routes are plain objects: { path, handler }
  *   Paths support:
@@ -23,7 +23,7 @@
  *     '/files/*'          — wildcard (greedy; available as params.*)
  *   Order matters — first match wins.
  *
- * ── Minimal setup ───────────────────────────────────────────────────────────
+ *  Minimal setup 
  *
  *   const router = createRouter([
  *     { path: '/',        handler: () => setState({ route: 'home' }) },
@@ -41,7 +41,7 @@
  *   router.getPath();     // current path string
  *   router.destroy();     // remove listeners
  *
- * ── Navigation components ────────────────────────────────────────────────────
+ *  Navigation components 
  *
  *   // Link — renders an <a> that uses router.push instead of page reload
  *   Link({ href: '/about', push: router.push })(['About'])
@@ -65,7 +65,7 @@
 import { a, nav, div, span } from './elements.js';
 import { cn } from './utils.js';
 
-// ── Route parsing helpers ────────────────────────────────────────────────────
+//  Route parsing helpers 
 
 /** Convert a route path pattern into a RegExp and extract param names */
 const _compileRoute = path => {
@@ -112,7 +112,7 @@ const _match = compiled => path => {
   return null;
 };
 
-// ── Router factory ────────────────────────────────────────────────────────────
+//  Router factory 
 
 /**
  * Curried router factory.
@@ -208,7 +208,7 @@ const createRouter = (routes = [], { mode = 'history', base = '' } = {}) => (han
   return { push, replace, back, forward, getPath, getHref, destroy };
 };
 
-// ── Navigation components ────────────────────────────────────────────────────
+//  Navigation components 
 
 /**
  * Link — curried navigation anchor.
