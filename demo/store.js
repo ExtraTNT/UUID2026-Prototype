@@ -116,6 +116,22 @@ export const store = createStore({
     zoneBPings:  0,
     showHelp:    false,
   },
+  // showcase — bus-driven live telemetry dashboard
+  showcase: {
+    feed:     [],       // [{ id, ts, type, msg }]  newest first, capped
+    counters: { click: 0, login: 0, error: 0, metric: 0, message: 0 },
+    history:  [],       // [{ total, rate }]   1Hz samples for the sparkline
+    running:  { click: false, login: false, error: false, metric: false, message: false },
+    rate:     1500,     // ms between auto-emits per running channel
+    filter:   '',       // free-text feed filter (lives in store, focus preserved)
+    pinned:   {},       // { [eventId]: true }
+    selected: null,     // hovered/selected type from the bar chart
+    matrixN:    6,         // edge length of the n³ template grid (n*n*n cells)
+    matrixHue:  'rainbow', // color theme for the grid
+    matrixMemo: true,      // memoize cells/planes/root — A/B against the raw pipeline
+    matrixTick: 0,         // bumped to force a recompute when the user clicks "re-render"
+    sampling:   false,     // 1Hz rate sampler — off by default to keep the profiler clean
+  },
 });
 
 export const { getState, setState } = store;

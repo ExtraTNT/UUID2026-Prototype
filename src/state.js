@@ -69,7 +69,7 @@ const _buildNode = vnode => {
     : document.createElement(vnode.tag);
   const props = vnode.props || {};
   for (const k in props) {
-    if (k === 'key')         continue;
+    if (k === 'key' || k === 'memo') continue;
     if (k.startsWith('on')) { node[k] = props[k]; continue; }
     if (isSvg)               node.setAttribute(k, props[k]);
     else                     node[k] = props[k];
@@ -107,14 +107,14 @@ const _patchProps = el => newProps => {
   Object.keys(prev)
     .filter(k => !(k in newProps))
     .forEach(k => {
-      if (k === 'key')                           return;
+      if (k === 'key' || k === 'memo')           return;
       if (typeof prev[k] === 'function')       { el[k] = null; return; }
       if (isSvg)                               { el.removeAttribute(k); return; }
       if (typeof prev[k] === 'boolean')          el[k] = false;
       else                                       el[k] = '';
     });
   Object.keys(newProps).forEach(k => {
-    if (k === 'key') return;
+    if (k === 'key' || k === 'memo') return;
     if (k.startsWith('on')) { if (el[k] !== newProps[k]) el[k] = newProps[k]; return; }
     if (isSvg) {
       if (el.getAttribute(k) !== String(newProps[k])) el.setAttribute(k, newProps[k]);
@@ -141,7 +141,22 @@ const _patch = parent => oldNode => newVnode => {
     return;
   }
 
-  //  Text node 
+  //  Memoized subtree short-circuit (opt-in via props.memo)
+  // Memoized factories return the same vnode object for the same opts.
+  // When the user marks a vnode `memo: true`, we stamp the DOM node with
+  // the vnode reference; on the next patch, ===-equality means the entire
+  // subtree is bitwise identical and can be skipped in O(1).
+  // Cost on plain views: one optional-chain check per element. No stamp,
+  // no walk, no allocation when memo is absent.
+  if (typeof newVnode === 'object' && newVnode.props?.memo) {
+    if (oldNode._dervoVnode === newVnode) {
+      if (_profiling) _ops.skips++;
+      return;
+    }
+    oldNode._dervoVnode = newVnode;
+  }
+
+  //  Text node
   if (typeof newVnode === 'string') {
     if (oldNode.nodeType === Node.TEXT_NODE) {
       if (oldNode.nodeValue !== newVnode) { if (_profiling) _ops.textUpdates++; oldNode.nodeValue = newVnode; }
@@ -328,10 +343,10 @@ let   _frameIdx  = 0;
 const _renderLog = [];   // [{ frame, computeMs, patchMs, totalMs, ts, ops, changedKeys }], newest-first, max 100
 
 // Per-frame DOM operation counters — only incremented when _profiling is on.
-let _ops = { vnodes:0, creates:0, replaces:0, removes:0, inserts:0, propPatches:0, textUpdates:0 };
+let _ops = { vnodes:0, creates:0, replaces:0, removes:0, inserts:0, propPatches:0, textUpdates:0, skips:0 };
 const _resetOps = () => {
   _ops.vnodes = _ops.creates = _ops.replaces = _ops.removes =
-  _ops.inserts = _ops.propPatches = _ops.textUpdates = 0;
+  _ops.inserts = _ops.propPatches = _ops.textUpdates = _ops.skips = 0;
 };
 
 // Deferred logging: frame data is buffered here and flushed at the START

@@ -805,3 +805,13 @@ body {
 .nav-crumb-link:hover { text-decoration:underline; }
 .nav-crumb-current { color:var(--text-muted); }
 .nav-crumb-divider { color:var(--border); user-select:none; }
+
+/*  Render-skip for large grids  */
+/* content-visibility lets the browser skip layout, paint and (in Chromium)
+   rendering for off-screen subtrees. contain-intrinsic-size reserves
+   vertical space so scroll position stays stable when the matrix is
+   skipped/restored. Free win for the n³ showcase grid. */
+.cvs-matrix {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}

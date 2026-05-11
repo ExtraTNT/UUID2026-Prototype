@@ -71,11 +71,16 @@ const opsChip = label => val =>
 
 // DOM ops summary row
 const opsRow = e => {
-  const ops   = e.ops ?? {};
-  const total = (ops.creates ?? 0) + (ops.replaces ?? 0) + (ops.removes ?? 0) + (ops.inserts ?? 0);
-  const rate  = (ops.vnodes ?? 0) > 0 ? Math.round(total / ops.vnodes * 100) : 0;
+  const ops     = e.ops ?? {};
+  const visited = ops.vnodes  ?? 0;
+  const skipped = ops.skips   ?? 0;
+  const walked  = visited + skipped;          // total subtree roots considered
+  const total   = (ops.creates ?? 0) + (ops.replaces ?? 0) + (ops.removes ?? 0) + (ops.inserts ?? 0);
+  const rate    = visited > 0 ? Math.round(total / visited * 100) : 0;
+  const skipPct = walked  > 0 ? Math.round(skipped / walked * 100) : 0;
   return div({ className: 'rp-ops-row' })([
-    opsChip('visited')(ops.vnodes       ?? 0),
+    opsChip('visited')(visited),
+    opsChip('skipped')(skipped),
     opsChip('created')(ops.creates      ?? 0),
     opsChip('replaced')(ops.replaces    ?? 0),
     opsChip('removed')(ops.removes      ?? 0),
@@ -84,8 +89,9 @@ const opsRow = e => {
     opsChip('textEdits')(ops.textUpdates ?? 0),
     span({
       className: 'rp-ops-rate',
-      title: `${total} DOM mutations out of ${ops.vnodes ?? 0} nodes visited`,
-    })([`${rate}% mutation rate`]),
+      title: `${total} DOM mutations out of ${visited} nodes visited` +
+             (skipped > 0 ? ` — ${skipped} memoized subtree(s) skipped (${skipPct}% of work avoided)` : ''),
+    })([`${rate}% mutation rate${skipped > 0 ? ` · ${skipPct}% skipped` : ''}`]),
   ]);
 };
 
@@ -134,6 +140,12 @@ const opsRow = e => {
  *                changed. It grows with tree depth × number of children. A
  *                steady high number here is expected and fine; it just means
  *                you have a large tree. It does NOT mean DOM was mutated.
+ *
+ *   skipped    — subtrees the reconciler short-circuited via the memo flag
+ *                (props.memo + ===-stable vnode reference, usually produced
+ *                by memoize() / memoLeaf() / memoComponent() + freeze()).
+ *                Each skip avoids a full O(subtree-size) walk. High skipped
+ *                with low visited = memoization is doing its job.
  *
  *   created    — new DOM nodes appended (appendChild). Happens when the new
  *                vnode list is longer than the old DOM, or when a keyed node

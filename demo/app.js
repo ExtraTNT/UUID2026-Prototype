@@ -30,6 +30,7 @@ import { keymapPanel     } from './panels/keymap.js';
 import { glitchPanel     } from './panels/glitch.js';
 import { headerPanel     } from './panels/header.js';
 import { a11yPanel       } from './panels/a11y.js';
+import { showcasePanel   } from './panels/showcase.js';
 
 //  Styles 
 initStyles();
@@ -43,6 +44,7 @@ document.addEventListener('keydown', e => {
 //  Nav 
 const NAV_ITEMS = [
   { id: 'philosophy', icon: '☯', label: 'Philosophy'},
+  { id: 'showcase',   icon: '◆', label: 'Showcase' },
   { id: 'buttons',    icon: '◈', label: 'Buttons' },
   { id: 'clock',      icon: '◷', label: 'Clock & Interval' },
   { id: 'controls',   icon: '⊶', label: 'Sliders & Progress' },
@@ -92,6 +94,7 @@ const renderPanel = state => {
 
 const PANELS = {
   philosophy: philosophyPanel,
+  showcase:   showcasePanel,
   buttons:    buttonsPanel,
   inputs:     inputsPanel,
   toggles:    togglesPanel,

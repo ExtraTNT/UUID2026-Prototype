@@ -18,7 +18,7 @@ export { createStore, mount, getRenderLog, getProfilerFrame, enableProfiler, dis
 export { required, minLength, maxLength, ip, email, pattern, range, validate, validateForm, isFormValid } from './validate.js';
 
 //  Caching / memoization 
-export { memoComponent, memoLeaf, memoize, stableKey } from './cache.js';
+export { memoComponent, memoLeaf, memoize, stableKey, freeze } from './cache.js';
 
 //  Components 
 export { Button }                        from './components/Button.js';
