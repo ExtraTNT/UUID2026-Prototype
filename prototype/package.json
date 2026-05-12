@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "node esbuild.config.js"
+  },
+  "dependencies": {
+    "esbuild": "^0.28.0"
+  }
+}
