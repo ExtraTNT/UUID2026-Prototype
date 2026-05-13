@@ -21,7 +21,7 @@ export const store = createStore({
   tempF: 57,
 
   money:   1754,
-  tickets: ['ToytoiIsland', 'Entrance', 'Camp D', 'Bar 18+', 'Showers +'],
+  tickets: ['ToitoiIsland', 'Entrance', 'Camp D', 'Bar 18+', 'Showers +'],
 
   // Anchor (x,y) of each zone label on the 600x600 festival-map grid.
   positions: {
@@ -40,10 +40,18 @@ export const store = createStore({
   },
 
   labels: {
-    stage1: 'Stage 1', stage2: 'Stage 2',
-    bar: 'BAR', food: 'Food Stands', vip: 'VIP',
-    showers: 'Showers', wc: 'WC', firstaid: 'First Aid', info: 'Info',
-    campA: 'Camp A', campB: 'Camp B', campD: 'Camp D',
+    stage1: 'Stage 1',
+    stage2: 'Stage 2',
+    bar: 'BAR',
+    food: 'Food Stands',
+    vip: 'VIP',
+    showers: 'Showers',
+    wc: 'WC',
+    firstaid: 'First Aid',
+    info: 'Info',
+    campA: 'Camp A',
+    campB: 'Camp B',
+    campD: 'Camp D',
   },
 
   people: {

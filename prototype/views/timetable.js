@@ -4,8 +4,8 @@ import { div } from '../../src/index.js';
 // Stage 1 / Stage 2 set lists live in the store.
 
 const height = 40;
-const fontSize = 16;
-const sizeStyle = `height:${height}px;font-size:${fontSize}pt;`;
+const fontSize = 24;
+const sizeStyle = `height:${height}px;font-size:${fontSize}px;line-height:1.1;`;
 
 export const StageBlock = (label) => slots =>
   styled(`${border}${col}flex:1;min-height:0;`)([
