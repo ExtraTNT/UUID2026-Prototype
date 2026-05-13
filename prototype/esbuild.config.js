@@ -4,8 +4,8 @@ import { join } from 'node:path';
 
 const outDir   = './dist';
 const outFile  = join(outDir, 'app.js');
-//  Both CSS files get minified after copy. dervo.css must sit next to app.js
-//  because src/styles.js resolves it via `new URL('./dervo.css', import.meta.url)`.
+// Both CSS files get minified after copy. dervo.css must sit next to app.js
+// because src/styles.js resolves it via `new URL('./dervo.css', import.meta.url)`.
 const cssFiles = [
   join(outDir, 'assets/nf.css'),
   join(outDir, 'dervo.css'),
@@ -34,13 +34,13 @@ const ensureDir = () => mkdir(outDir, { recursive: true });
 const copyOne  = ({ from, to }) => cp(from, to, { recursive: true });
 const copyAll  = assets => Promise.all(assets.map(copyOne));
 
-//  esbuild emits `var` at top-level when bundling. Convert each `var` to
-//  `const` if the binding is never reassigned, otherwise to `let`.
+// esbuild emits `var` at top-level when bundling. Convert each `var` to
+// `const` if the binding is never reassigned, otherwise to `let`.
 const isReassigned = src => name => {
   const re = new RegExp(`(^|[^.\\w$])${name}\\s*=[^=]`, 'g');
   let hits = 0;
   while (re.exec(src) !== null) hits += 1;
-  return hits > 1; //  one hit is the declaration itself
+  return hits > 1; // one hit is the declaration itself
 };
 
 const namesIn = head =>
@@ -59,8 +59,8 @@ const postProcess = path =>
     .then(rewriteVars)
     .then(out => writeFile(path, out));
 
-//  Minify CSS in-place via esbuild's transform API.
-//  Strips whitespace + comments and applies safe syntax minification.
+// Minify CSS in-place via esbuild's transform API.
+// Strips whitespace + comments and applies safe syntax minification.
 const minifyCss = path =>
   readFile(path, 'utf8')
     .then(src => transform(src, {

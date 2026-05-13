@@ -1,10 +1,5 @@
 import { createStore } from '../src/index.js';
 
-// layout: 'A' (Info — money / tickets / people-map)
-//         'B' (Schedule — time / weather / map⇄timetable)
-// view:   inside Layout B, either 'map' or 'timetable'.
-// auto:   true → 30s ticker may flip view between map/timetable.
-//         false → hardware button pinned it; ticker leaves it alone.
 export const store = createStore({
   layout:    'B',
   view:      'timetable',
@@ -64,17 +59,30 @@ export const store = createStore({
 
   // Display-length threshold per zone — over this collapses to "<count>/<total>".
   lengths: {
-    stage1: 6, stage2: 6,
-    bar: 1, food: 0, vip: 1,
-    campA: 10, campB: 10, campD: 10,
+    stage1: 6, 
+    stage2: 6,
+    bar: 1,
+    food: 0,
+    vip: 1,
+    campA: 10,
+    campB: 10,
+    campD: 10,
   },
 
   // Number of columns the name grid uses per zone.
   cols: {
-    stage1: 2, stage2: 2,
-    bar: 1, food: 2, vip: 1,
-    showers: 1, wc: 1, firstaid: 1, info: 1,
-    campA: 2, campB: 2, campD: 2,
+    stage1: 2,
+    stage2: 2,
+    bar: 1,
+    food: 2,
+    vip: 1,
+    showers: 1,
+    wc: 1,
+    firstaid: 1,
+    info: 1,
+    campA: 2,
+    campB: 2,
+    campD: 2,
   },
 
   stage1: [

@@ -8,7 +8,7 @@ import {
 import { store, setState, getState } from './store.js';
 import { LayoutA, LayoutB } from './views/layouts.js';
 
-//  Hack Nerd Font everywhere.
+// Hack Nerd Font everywhere.
 initStyles({
   fonts: {
     sans: "'Hack Nerd Font', 'Hack', ui-monospace, monospace",
@@ -18,14 +18,14 @@ initStyles({
 document.body.style.cssText =
   "padding:0; margin:0; font-family:'Hack Nerd Font','Hack',ui-monospace,monospace;";
 
-//  30s ticker — flips map ⇄ timetable inside Layout B while auto is on.
+// 30s ticker — flips map ⇄ timetable inside Layout B while auto is on.
 createInterval(() => {
   const s = getState();
   if (!s.auto) return;
   setState({ view: s.view === 'timetable' ? 'map' : 'timetable' });
 })({ ms: 30000, autoStart: true });
 
-//  Wall-clock ticker so the displayed time advances.
+// Wall-clock ticker so the displayed time advances.
 createInterval(() => setState({ now: new Date() }))(
   { ms: 30000, autoStart: true }
 );
@@ -54,7 +54,7 @@ const hwBtn = active => `
   border-radius:4px;
 `;
 
-//  eInk panel — strict 600x800
+// eInk panel — strict 600x800
 const einkPanel = state =>
   div({
     class: 'content',

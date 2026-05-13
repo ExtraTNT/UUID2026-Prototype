@@ -1,7 +1,9 @@
 {
   "type": "module",
   "scripts": {
-    "build": "node esbuild.config.js"
+    "build": "node esbuild.config.js",
+    "serve": "node serve.js",
+    "start": "node esbuild.config.js && node serve.js"
   },
   "dependencies": {
     "esbuild": "^0.28.0"

@@ -1,4 +1,4 @@
-import { at, card, clip, frame, noWrap, styled, white } from './styles.js';
+import { at, card, clip, frame, noWrap, styled, white, f700, w100, h100 } from './styles.js';
 
 const SVG_SKETCH = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' width='592' height='592'>
   <defs>
@@ -30,12 +30,12 @@ const DEFAULT_IMAGE = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(SVG
 // 600x600 canvas with image as background.
 export const FestivalMap = ({ image = DEFAULT_IMAGE, pad = 4 } = {}) => overlays =>
   styled(`position:relative;${frame(600)(600)}padding:${pad}px;${white}${clip}`)([
-    styled(`position:relative;width:100%;height:100%;background:url("${image}") center/100% 100% no-repeat;${clip}`)(overlays),
+    styled(`position:relative;${w100}${h100}background:url("${image}") center/100% 100% no-repeat;${clip}`)(overlays),
   ]);
 
 // Single label at (x, y).
 export const Single = ({ x, y, text, size = 14 }) =>
-  styled(`${at(x)(y)}font-size:${size}px;font-weight:700;${card}padding:0 2px;${noWrap}`)([text]);
+  styled(`${at(x)(y)}font-size:${size}px;${f700}${card}padding:0 2px;${noWrap}`)([text]);
 
 // Stack of labels at (x, y). Collapses to "<count>/<length>" if items.length > lengths[id].
 export const Stack = ({ x, y, items, cols = 1, size = 14 }) =>
