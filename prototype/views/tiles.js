@@ -12,7 +12,7 @@ const einkRow = h => content =>
     styled(`${grow}${col}${w100}align-items:flex-start;justify-content:center;`)(content),
   ]);
 
-// One row in the 5-row TicketsTile column. Curried on `total` so .map gets a (t, i) callback.
+// Single row
 const ticketRow = total => (t, idx) =>
   styled(`flex:1;${flex}${center}${idx < total - 1 ? 'border-bottom:1px solid #000;' : ''}font-size:20px;`)([t]);
 
@@ -29,7 +29,6 @@ export const TicketsTile = ({ tickets }) =>
     tickets.map(ticketRow(tickets.length))
   );
 
-// Layout B
 export const TimeTile = ({ now }) =>
   einkRow(50)([
     styled(`${flex}${p4}${f700}${fs42px}${w100}justify-content:space-between;`)([
