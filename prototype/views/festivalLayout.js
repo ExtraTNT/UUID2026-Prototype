@@ -1,4 +1,5 @@
-import { at, card, clip, frame, noWrap, styled, white, f700, w100, h100 } from './styles.js';
+import { at, card, clip, frame, noWrap, styled, white, f700, w100, h100, fs42px, fs24px } from './styles.js';
+import { i } from '../../src/index.js';
 
 const SVG_SKETCH = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' width='592' height='592'>
   <defs>
@@ -28,9 +29,12 @@ const DEFAULT_IMAGE = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(SVG
 
 
 // 600x600 canvas with image as background.
-export const FestivalMap = ({ image = DEFAULT_IMAGE, pad = 4 } = {}) => overlays =>
+export const FestivalMap = ({ image = DEFAULT_IMAGE, pad = 4, displayPos = [0,0] } = {}) => overlays =>
   styled(`position:relative;${frame(600)(600)}padding:${pad}px;${white}${clip}`)([
-    styled(`position:relative;${w100}${h100}background:url("${image}") center/100% 100% no-repeat;${clip}`)(overlays),
+    styled(`position:relative;${w100}${h100}background:url("${image}") center/100% 100% no-repeat;${clip}`)([...overlays, 
+      i({className: 'nf nf-md-map_marker', style: `${at(displayPos[0])(displayPos[1])}${fs24px}`})([]),
+    ]),
+    
   ]);
 
 // Single label at (x, y).
@@ -42,5 +46,3 @@ export const Stack = ({ x, y, items, cols = 1, size = 14 }) =>
   styled(`${at(x)(y)}display:grid;grid-template-columns:repeat(${cols},auto);gap:2px;`)(
     items.map(t => styled(`${card}padding:0 2px;font-size:${size}px;line-height:1.25;${noWrap}`)([t]))
   );
-
-// Zone data (positions, labels, people, lengths, cols) lives in the store.

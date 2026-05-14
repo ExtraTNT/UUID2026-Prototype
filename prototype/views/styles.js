@@ -32,6 +32,7 @@ export const h100 = 'height:100%;';
 export const p4 = 'padding:4px;';
 export const f700 = 'font-weight:700;';
 
+export const fs24px = 'font-size:24px;';
 export const fs42px = 'font-size:42px;';
 export const fs52px = 'font-size:52px;';
 

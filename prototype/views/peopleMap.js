@@ -1,8 +1,8 @@
 import { FestivalMap, Single, Stack } from './festivalLayout.js';
 
 // Map with friends <3
-export const PeopleMap = ({ positions, labels, people, lengths, cols }) =>
-  FestivalMap()(
+export const PeopleMap = ({ positions, labels, people, lengths, cols, displayPos }) =>
+  FestivalMap({ displayPos })(
     Object.entries(labels).flatMap(([id, text]) => {
       const pos    = positions[id];
       const list   = people[id]  || [];

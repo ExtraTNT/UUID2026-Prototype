@@ -39,6 +39,8 @@ export const store = createStore({
     campD:   { x: 415, y: 368 },
   },
 
+  displayPos: [300,135],
+
   labels: {
     stage1: 'Stage 1',
     stage2: 'Stage 2',

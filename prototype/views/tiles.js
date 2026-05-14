@@ -1,6 +1,6 @@
 import { div, i } from '../../src/index.js';
 import { Panel } from './Panel.js';
-import { card, center, clip, col, flex, frame, grow, p4, row, styled, f700, fs42px, fs52px, w100 } from './styles.js';
+import { card, center, clip, col, flex, frame, grow, p4, row, styled, f700, fs24px, fs42px, fs52px, w100 } from './styles.js';
 
 const pad     = n => String(n).padStart(2, '0');
 const fmtHM   = d => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
@@ -14,7 +14,7 @@ const einkRow = h => content =>
 
 // Single row
 const ticketRow = total => (t, idx) =>
-  styled(`flex:1;${flex}${center}${idx < total - 1 ? 'border-bottom:1px solid #000;' : ''}font-size:24px;`)([t]);
+  styled(`flex:1;${flex}${center}${idx < total - 1 ? 'border-bottom:1px solid #000;' : ''}${fs24px}`)([t]);
 
 // Layout A 300×200
 // Money: body below the icon (full width), one big centered value.
