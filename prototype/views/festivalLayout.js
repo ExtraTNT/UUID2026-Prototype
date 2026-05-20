@@ -29,6 +29,7 @@ const DEFAULT_IMAGE = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(SVG
 
 
 // 600x600 canvas with image as background.
+// abs positioned overlay (including pos of this display)
 export const FestivalMap = ({ image = DEFAULT_IMAGE, pad = 4, displayPos = [0,0] } = {}) => overlays =>
   styled(`position:relative;${frame(600)(600)}padding:${pad}px;${white}${clip}`)([
     styled(`position:relative;${w100}${h100}background:url("${image}") center/100% 100% no-repeat;${clip}`)([...overlays, 
